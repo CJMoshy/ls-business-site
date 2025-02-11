@@ -1,4 +1,7 @@
-export default class Particle {
+interface Renderable {
+  draw: (ctx: CanvasRenderingContext2D) => void;
+}
+export default class Particle implements Renderable{
   x!: number;
   y!: number;
   vx!: number;
@@ -41,5 +44,14 @@ export default class Particle {
     if (this.life <= 0 || this.y <= 0) {
       this.reset();
     }
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    // Batch drawing using single path
+    ctx.fillStyle = this.color;
+
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fill();
   }
 }

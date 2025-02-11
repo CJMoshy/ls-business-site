@@ -18,16 +18,8 @@ export default function ParticleEmitter() {
 
   // Create particle pool
   const PARTICLE_COUNT = 500;
-  const particles = Array.from(
-    { length: PARTICLE_COUNT },
-    () =>
-      new Particle(
-        window.innerWidth,
-        window.innerHeight,
-        fire_colors[Math.floor(Math.random() * fire_colors.length - 1)]
-      )
-  );
-
+  let particles: Particle[];
+  
   const render = () => {
     if (!ctx) return;
     if (!canvasRef) return;
@@ -44,19 +36,23 @@ export default function ParticleEmitter() {
     // Update and draw particles
     particles.forEach((particle) => {
       particle.update();
-
-      // Batch drawing using single path
-      ctx.fillStyle = particle.color;
-
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
-      ctx.fill();
+      particle.draw(ctx);
     });
 
     requestAnimationFrame(render);
   };
 
   useEffect(() => {
+    particles = Array.from(
+      { length: PARTICLE_COUNT },
+      () =>
+        new Particle(
+          window.innerWidth,
+          window.innerHeight,
+          fire_colors[Math.floor(Math.random() * fire_colors.length - 1)]
+        )
+    );
+
     if (canvasRef.current) {
       ctx = canvasRef.current.getContext("2d") as CanvasRenderingContext2D;
       const parent = canvasRef.current.parentElement!;
@@ -73,6 +69,7 @@ export default function ParticleEmitter() {
         render();
       }
     }
+  
   }, []);
 
   return (
