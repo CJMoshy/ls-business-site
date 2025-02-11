@@ -20,7 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jfslab.className} antialiased h-screen flex bg-[#BABABA]`}>
+      <body
+        className={`${jfslab.className} antialiased h-screen flex bg-[#BABABA]`}
+      >
         <SidebarProvider>
           <AppSidebar />
           <main className="!flex-1">
