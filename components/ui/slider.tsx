@@ -1,3 +1,5 @@
+"use client";
+
 import Thumbnail from "./thumbnail";
 import {
   Carousel,
@@ -33,8 +35,8 @@ export default function Slider() {
       <Carousel opts={{ loop: true }}>
         <CarouselNext />
         <CarouselContent>
-          {gameNames.map((gn) => (
-            <CarouselItem>
+          {gameNames.map((gn, index) => (
+            <CarouselItem key={index}>
               <Thumbnail game={gn} />
             </CarouselItem>
           ))}

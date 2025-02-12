@@ -1,6 +1,7 @@
 import Blurb from "@/components/home/blurb";
 import ParticleEmitter from "@/components/home/particle";
 import Slider from "@/components/ui/slider";
+
 export default function Home() {
   return (
     <>
