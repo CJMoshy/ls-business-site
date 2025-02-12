@@ -1,6 +1,7 @@
 # Major
 
     - particle emitter refactor
+        - bug when closing sidenav the canvas resizes to smaller
         - command pattern for particle
         - window resize dynamic listener
 
