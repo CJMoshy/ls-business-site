@@ -8,26 +8,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
-export interface GameInfo {
-  name: string;
-  img: string;
-}
-
-const gameNames: GameInfo[] = [
-  {
-    name: "Game 1",
-    img: "img",
-  },
-  {
-    name: "Game 2",
-    img: "img",
-  },
-  {
-    name: "Game 3",
-    img: "img",
-  },
-];
+import { gamesList } from "@/lib/games/gameInfo";
 
 export default function Slider() {
   return (
@@ -35,7 +16,7 @@ export default function Slider() {
       <Carousel opts={{ loop: true }}>
         <CarouselNext />
         <CarouselContent>
-          {gameNames.map((gn, index) => (
+          {gamesList.map((gn, index) => (
             <CarouselItem key={index}>
               <Thumbnail game={gn} />
             </CarouselItem>
