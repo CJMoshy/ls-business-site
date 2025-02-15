@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Josefin_Slab } from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/nav/app-sidebar";
 import "./globals.css";
+import Script from "next/script";
 
 const jfslab = Josefin_Slab({
   subsets: ["latin"],
@@ -30,7 +31,15 @@ export default function RootLayout({
             {children}
           </main>
         </SidebarProvider>
+
+        {/* Determine whether or not this script tag should be before interactive or not 
+          tldr if things start crashing look here...
+          https://nextjs.org/docs/app/api-reference/components/script
+        */}
+        <Script src="https://cdnjs.cloudflare.com/ajax/libs/phaser/3.87.0/phaser.min.js" />
       </body>
     </html>
   );
 }
+
+/** unload game before leaving page */

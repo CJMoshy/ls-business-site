@@ -13,6 +13,7 @@ import GamePlayer from "@/components/games/gamePlayer";
 interface GameProps {
   game: GameInfo;
 }
+
 export default function GameCard({ game }: GameProps) {
   return (
     <Card>

@@ -1,7 +1,11 @@
-type WIN_GAME_FUNC = () => void;
+/**
+ * init and end start and end the game
+ */
+type GAME_CONTROLLER_FUNC = [() => void, () => void];
+
 declare global {
   interface Window {
-    run: () => WIN_GAME_FUNC[];
+    run: () => GAME_CONTROLLER_FUNC;
   }
 }
 
@@ -11,14 +15,12 @@ interface GameFile {
 }
 
 interface Game {
-  index: number;
   name: string;
   running: boolean;
-  script: HTMLElement | undefined;
-  _init: () => void;
-  _end: () => void;
-  load_game: () => void;
-  unload_game: () => void;
+  _init_: () => void;
+  _end_: () => void;
+  loadGame: () => void;
+  unloadGame: () => void;
 }
 
 /**
@@ -28,7 +30,6 @@ interface Game {
 export default class GameLoader {
   private paths: GameFile[];
   private games: Game[];
-  private gameCount: number;
 
   static gameLoader: GameLoader;
 
@@ -50,11 +51,72 @@ export default class GameLoader {
   private constructor(_paths: GameFile[]) {
     this.paths = _paths;
     this.games = [];
-    this.gameCount = 0;
   }
 
-  private incrementGameCount(): void {
-    this.gameCount += 1;
+  /**
+   * run one game
+   * @param {string} _name name of the game to play
+   * @return {boolean}
+   */
+  public async runOne(_name: string) {
+    const exists = this.paths.find((p) => p.name === _name);
+    if (exists === undefined) return;
+
+    await this.addGame(_name, exists.path);
+    
+    const game = this.games.find((game) => game.name === _name)!;
+    if (game.running) return;
+    game.loadGame();
+  }
+
+  /**
+   * end one game
+   * @param {string} _name
+   * @return {boolean}
+   */
+  public endOne(_name: string) {
+    const game = this.games.find((game) => game.name === _name);
+    if (game === undefined) return;
+    game.unloadGame();
+  }
+
+  /**
+   *
+   * @param _name
+   * @param _path
+   * @returns
+   */
+  private async addGame(_name: string, _path: string) {
+    if (this.games.find((g) => g.name === _name)) {
+      console.log(`script ${_name} has already been initialized`);
+      return;
+    }
+    try {
+      // load the script
+      await this.loadScript(_path);
+      const [init, end] = window.run(); // scripts will define an init and end function
+
+      const game: Game = {
+        name: _name,
+        running: false,
+        _init_: init,
+        _end_: end,
+        loadGame: () => {
+          console.log(`loading game ${game.name}`);
+          game.running = true;
+          game._init_();
+        },
+        unloadGame: () => {
+          console.log(`unloading game ${game.name}`);
+          game.running = false;
+          game._end_();
+        },
+      };
+
+      this.games.push(game);
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   /**
@@ -67,69 +129,11 @@ export default class GameLoader {
       const script = document.createElement("script");
       script.src = src;
       script.onload = () => resolve(script);
-      script.onerror = () => reject(new Error(`Failed to load script ${src}`));
+      script.onerror = () => {
+        document.body.removeChild(script); // prob not necessary because my scripts run
+        reject(new Error(`Failed to load script ${src}`));
+      };
       document.body.appendChild(script);
     });
-  }
-
-  private async addGame(_name: string, _path: string) {
-    if (this.games.find((g) => g.name === _name)) {
-      console.log(`script ${_name} has already been initialized`);
-      return;
-    }
-    try {
-      const _script = await this.loadScript(_path);
-      const [init, end] = window.run();
-      const game: Game = {
-        index: this.gameCount,
-        name: _name,
-        running: false,
-        script: _script,
-        _init: init,
-        _end: end,
-        load_game: () => {
-          console.log(`loading game ${game.name}`);
-          game.running = true;
-          game._init();
-        },
-        unload_game: () => {
-          console.log(`unloading game ${game.name}`);
-          game.running = false;
-          game._end();
-        },
-      };
-      this.games.push(game);
-      this.incrementGameCount();
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  /**
-   * run one game
-   * @param {string} _name name of the game to play
-   * @return {boolean}
-   */
-  public async runOne(_name: string) {
-    const exists = this.paths.find((p) => p.name === _name);
-    if (exists === undefined) return;
-    await this.addGame(_name, exists.path);
-    const game = this.games.find((game) => game.name === _name);
-    if (!game) {
-      return;
-    }
-    if (game.running) return;
-    game.load_game();
-  }
-
-  /**
-   * end one game
-   * @param {string} _name
-   * @return {boolean}
-   */
-  public endOne(_name: string) {
-    const game = this.games.find((game) => game.name === _name);
-    if (!game) return;
-    game.unload_game();
   }
 }

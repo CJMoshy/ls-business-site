@@ -19,10 +19,10 @@ export default function ParticleEmitter() {
   // Create particle pool
   const PARTICLE_COUNT = 500;
   let particles: Particle[];
-  
+
   const render = () => {
     if (!ctx) return;
-    if (!canvasRef) return;
+    if (!canvasRef.current) return;
 
     // Clear with alpha for trails
     ctx.fillStyle = "rgba(186, 186, 186, 0.6)";
@@ -69,7 +69,8 @@ export default function ParticleEmitter() {
         render();
       }
     }
-  
+
+    return () => console.log("unmount");
   }, []);
 
   return (
