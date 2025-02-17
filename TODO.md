@@ -2,7 +2,6 @@
 
     - particle emitter refactor
         - bug when closing sidenav the canvas resizes to smaller
-        - command pattern for particle
         - window resize dynamic listener
 
     - scrolling game component
@@ -12,3 +11,5 @@
 # Minor
 
     - learn more about shad/next
+
+    - ice cream game is broken you need to fix that 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-const routes = [
+export const routes = [
   { name: "Home", href: "/" },
   { name: "Games", href: "/games" },
   { name: "Blog", href: "/blog" },

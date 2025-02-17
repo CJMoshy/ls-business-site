@@ -6,7 +6,7 @@ export default function Games() {
   
   return (
     <>
-      <GameCard game={gamesList[0]}></GameCard>;
+      <GameCard game={gamesList[0]}></GameCard>
     </>
   );
 }

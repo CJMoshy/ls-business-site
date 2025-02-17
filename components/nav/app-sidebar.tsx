@@ -11,7 +11,7 @@ import NavLinks from "@/components/nav/links";
 import Image from "next/image";
 import { SidebarDivider } from "@/components/ui/sidebar-divider";
 
-export function AppSidebar() {
+export default function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader />
