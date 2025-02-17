@@ -29,18 +29,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${jfslab.className} antialiased h-screen flex bg-[#BABABA]`}
+        className={`${jfslab.className} antialiased h-screen flex`}
       >
         <SidebarProvider className="md:hidden">
           <AppSidebar />
-          <main className="!flex-1 !md:overflow-hidden">
+          <main className="min-w-96 overflow-y-auto overflow-x-hidden">
             <SidebarTrigger />
             {children}
           </main>
         </SidebarProvider>
         <div className="max-sm:hidden">
           <AppNavBar />
-          <main className="!flex-1 min-w-full">{children}</main>
+          <main className="!flex-1">{children}</main>
         </div>
 
         {/* Determine whether or not this script tag should be before-interactive or not 

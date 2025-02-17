@@ -1,13 +1,13 @@
-import Blurb from "@/components/home/blurb";
+import Hero from "@/components/home/hero";
 import ParticleEmitter from "@/components/home/particle";
-import Slider from "@/components/ui/slider";
+import FeaturedGame from "@/components/home/featured";
 
 export default function Home() {
   return (
     <>
       <div className="w-in text-7xl text-center">Lagunitas Studios</div>
-      <Blurb />
-      <Blurb children={<Slider />} />
+      <Hero />
+      <FeaturedGame />
       <ParticleEmitter />
     </>
   );

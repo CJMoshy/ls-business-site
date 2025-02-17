@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { GameInfo } from "./slider";
-
+import { GameInfo } from "@/lib/games/gameInfo";
 interface ThumbnailProps {
   game: GameInfo;
 }

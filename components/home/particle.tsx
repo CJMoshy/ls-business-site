@@ -25,7 +25,7 @@ export default function ParticleEmitter() {
     if (!canvasRef.current) return;
 
     // Clear with alpha for trails
-    ctx.fillStyle = "rgba(186, 186, 186, 0.6)";
+    ctx.fillStyle = "rgb(43, 43, 43)";
     ctx.fillRect(
       0,
       0,
