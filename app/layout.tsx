@@ -1,25 +1,21 @@
 import type { Metadata } from "next";
-import { Josefin_Slab } from "next/font/google";
+import { Josefin_Slab, Delicious_Handrawn } from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/nav/app-sidebar";
 import "./globals.css";
 import Script from "next/script";
 import AppNavBar from "@/components/nav/app-navbar";
-import App from "next/app";
 
 const jfslab = Josefin_Slab({
   subsets: ["latin"],
 });
 
+const dHD = Delicious_Handrawn({weight: '400'});
+
 export const metadata: Metadata = {
   title: "LS",
   description: "The best company to ever exist", // TODO
 };
-
-interface WidthHeight {
-  width: number;
-  height: number;
-}
 
 export default function RootLayout({
   children,
@@ -28,12 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${jfslab.className} antialiased h-screen flex`}
-      >
+      <body className={`${jfslab.className} antialiased h-screen flex`}>
         <SidebarProvider className="md:hidden">
           <AppSidebar />
-          <main className="min-w-96 overflow-y-auto overflow-x-hidden">
+          <main className="min-w-full overflow-y-auto overflow-x-hidden">
             <SidebarTrigger />
             {children}
           </main>

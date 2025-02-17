@@ -8,7 +8,7 @@ export const gamesList: GameInfo[] = [
   {
     name: "Ice Cream Game",
     img: "img",
-    desc: "Wow the best game to ever create so amazing",
+    desc: "Simple stack-em style game. 100% customizable themes",
   },
   {
     name: "Baloon Popper",

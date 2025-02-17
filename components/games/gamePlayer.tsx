@@ -1,27 +1,45 @@
 "use client";
+
 import GameLoader from "@/lib/games/gameLoader";
-import { Button } from "@/components/ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 interface GamePlayerProps {
   name: string;
 }
 export default function GamePlayer({ name }: GamePlayerProps) {
+  const [active, setActive] = useState(false);
+
   const loadGame = () => {
+    setActive(!active);
+    GameLoader.instance.endAny();
     GameLoader.instance.runOne(name);
   };
-  const unload = () => {
-    GameLoader.instance.endOne(name);
-  };
 
+  // might not be needed but safe for now
   useEffect(() => {
-    return () => GameLoader.instance.endOne(name);
+    document.addEventListener("unload-game", ((e: CustomEvent<string>) => {
+      if (e.detail === name) {
+        setActive(false);
+      }
+    }) as EventListener);
+
+    return () => {
+      document.removeEventListener("unload-game", ((e: CustomEvent<string>) => {
+        if (e.detail === name) {
+          setActive(false);
+        }
+      }) as EventListener);
+
+      GameLoader.instance.endOne(name);
+    };
   });
 
   return (
-    <>
-      <div id={name}></div>
-      <Button onClick={loadGame}>Play it</Button>
-      <Button onClick={unload}>End it</Button>
-    </>
+    <div
+      onClick={loadGame}
+      id={name}
+      className="w-[300px] h-[450px] bg-secondary text-primary"
+    >
+      {active ? "" : "THUMBNAIL IMAGE"}
+    </div>
   );
 }

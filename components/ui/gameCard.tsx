@@ -16,9 +16,10 @@ interface GameProps {
 
 export default function GameCard({ game }: GameProps) {
   return (
-    <Card>
-      <CardHeader />
-      <CardTitle>{game.name}</CardTitle>
+    <Card className="max-sm:mx-5 max-sm:mb-16 drop-shadow-[-15px_20px_4px_rgba(0,0,0,0.25)]">
+      <CardHeader>
+        <CardTitle>{game.name}</CardTitle>
+      </CardHeader>
       <CardContent>
         <GamePlayer name={game.name} />
       </CardContent>

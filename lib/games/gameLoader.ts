@@ -63,9 +63,10 @@ export default class GameLoader {
     if (exists === undefined) return;
 
     await this.addGame(_name, exists.path);
-    
+
     const game = this.games.find((game) => game.name === _name)!;
     if (game.running) return;
+    console.log("loading");
     game.loadGame();
   }
 
@@ -78,6 +79,20 @@ export default class GameLoader {
     const game = this.games.find((game) => game.name === _name);
     if (game === undefined) return;
     game.unloadGame();
+  }
+
+  /**
+   * End any running games
+   */
+  public endAny() {
+    this.games
+      .filter((game) => game.running === true)
+      .forEach((game) => {
+        game.unloadGame();
+        document.dispatchEvent(
+          new CustomEvent<string>("unload-game", { detail: game.name })
+        );
+      });
   }
 
   /**
