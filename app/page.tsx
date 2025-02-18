@@ -5,10 +5,10 @@ import FeaturedGame from "@/components/home/featured";
 export default function Home() {
   return (
     <>
-      <div className="w-in text-7xl text-center">Lagunitas Studios</div>
+      <div className="w-in text-7xl text-center text-secondary">Lagunitas Studios</div>
       <Hero />
       <FeaturedGame />
-      <ParticleEmitter />
+      {/* <ParticleEmitter /> */}
     </>
   );
 }

@@ -17,7 +17,7 @@ export default function ParticleEmitter() {
   ];
 
   // Create particle pool
-  const PARTICLE_COUNT = 500;
+  const PARTICLE_COUNT = 250;
   let particles: Particle[];
 
   const render = () => {

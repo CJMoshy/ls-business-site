@@ -40,6 +40,7 @@ export default class GameLoader {
           name: "Ice Cream Game",
           path: "/bundles/iceCream/bundle.js",
         },
+        { name: "Baloon Popper", path: "/bundles/popper/bundle.js" },
       ]);
     }
     return GameLoader.gameLoader;
@@ -107,10 +108,9 @@ export default class GameLoader {
       return;
     }
     try {
-      // load the script
+      // load the scrapt
       await this.loadScript(_path);
       const [init, end] = window.run(); // scripts will define an init and end function
-
       const game: Game = {
         name: _name,
         running: false,
@@ -151,4 +151,12 @@ export default class GameLoader {
       document.body.appendChild(script);
     });
   }
+
+  loadGames = async () => {
+    for (const path of this.paths) {
+      await this.addGame(path.name, path.path);
+    }
+    console.log(this.paths);
+    return true;
+  };
 }

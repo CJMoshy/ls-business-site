@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
-import { Josefin_Slab, Delicious_Handrawn } from "next/font/google";
+import {
+  Josefin_Slab,
+  Delicious_Handrawn,
+  Indie_Flower,
+} from "next/font/google";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import AppSidebar from "@/components/nav/app-sidebar";
 import "./globals.css";
@@ -10,7 +14,9 @@ const jfslab = Josefin_Slab({
   subsets: ["latin"],
 });
 
-const dHD = Delicious_Handrawn({weight: '400'});
+const dHD = Delicious_Handrawn({ weight: "400" });
+
+const flow = Indie_Flower({ weight: "400" });
 
 export const metadata: Metadata = {
   title: "LS",
