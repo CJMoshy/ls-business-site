@@ -9,8 +9,10 @@ import AppSidebar from "@/components/nav/app-sidebar";
 import "./globals.css";
 import Script from "next/script";
 import AppNavBar from "@/components/nav/app-navbar";
+import { CustomTrigger } from "@/components/ui/customTrigger";
 
-const jfslab = Josefin_Slab({
+const jfslabR = Josefin_Slab({
+  weight: ["600"],
   subsets: ["latin"],
 });
 
@@ -30,17 +32,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jfslab.className} antialiased h-screen flex`}>
+      <body className={`${jfslabR.className} antialiased`}>
         <SidebarProvider className="md:hidden">
           <AppSidebar />
-          <main className="min-w-full overflow-y-auto overflow-x-hidden">
-            <SidebarTrigger />
+          <main className="flex flex-col">
+            <CustomTrigger />
             {children}
           </main>
         </SidebarProvider>
-        <div className="max-sm:hidden">
+        <div className="max-sm:hidden w-full">
           <AppNavBar />
-          <main className="!flex-1">{children}</main>
+          <main>{children}</main>
         </div>
 
         {/* Determine whether or not this script tag should be before-interactive or not 

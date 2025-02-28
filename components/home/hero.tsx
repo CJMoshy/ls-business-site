@@ -1,17 +1,21 @@
 import { Button } from "@/components/ui/button";
+
 export default function Hero() {
   return (
-    <div className="max-sm:h-96 max-sm:mx-5 max-sm:my-10 bg-[#131313] rounded-xl drop-shadow-[-15px_20px_10px_rgba(0,0,0,0.75)] text-white flex flex-col">
-      <h1 className="max-sm:text-2xl max-sm:w-full max-sm:text-center max-sm:mt-16">
-        Beautiful, Modern Websites
-      </h1>
-      <h1 className="max-sm:text-2xl max-sm:w-full max-sm:text-center max-sm:mt-14">
-        Game-ified!
-      </h1>
-      <Button variant="secondary" className="max-sm:mt-10 text-2xl">
+    <>
+      <img src="/brooke.jpg" alt="Image by Jon Moore on Unsplash" />
+      <div className=" absolute top-32 text-5xl text-left text-secondary ml-5">
+        Lagunitas Studios
+      </div>
+      <div className="absolute top-72 ml-5 text-left text-3xl text-secondary">
+        Gameified Web Experiences <br /> For Your Business
+      </div>
+      <Button variant="secondary" className="absolute top-96 left-6 text-2xl max-w-52">
         Get Started
       </Button>
-      <div className="w-5/6 max-sm:h-2 max-sm:mt-10 bg-background self-center rounded-lg"></div>
-    </div>
+    </>
   );
 }
+
+// brooke image
+//Photo by <a href="https://unsplash.com/@purejulia?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">pure julia</a> on <a href="https://unsplash.com/photos/brown-and-gray-rock-on-water-B8y6uvTnEvU?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>

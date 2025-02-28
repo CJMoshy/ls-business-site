@@ -9,7 +9,6 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
-import { routes } from "@/components/nav/links";
 
 export default function AppNavbar() {
   const routes = [
@@ -18,7 +17,7 @@ export default function AppNavbar() {
     { name: "Blog", href: "/blog" },
   ];
   return (
-    <NavigationMenu className="max-sm:hidden max-h-20 min-w-full bg-foreground flex flex-col items-end">
+    <NavigationMenu className="max-sm:hidden  bg-foreground fixed">
       <NavigationMenuList>
         {routes.map((route, index) => {
           return (
